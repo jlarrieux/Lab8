@@ -171,8 +171,7 @@ class DList implements List     //Circular, doubly linked list implementation of
 
     @Override
     public boolean isEmpty() {
-        if(head==null)return true;
-        else  return false;
+        return head == null;
     }
 
 
