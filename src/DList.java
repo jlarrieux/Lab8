@@ -112,21 +112,22 @@ class DList implements List     //Circular, doubly linked list implementation of
 
     @Override
     public void insert(Object newElement) {
-        DListNode now;
+        DListNode now, next;
         if(head==null){
-            head = new DListNode(newElement,null, null);
+            head = new DListNode(newElement,head, head);
             cursor = head;
+            cursor.setNext(head);
+            cursor.setPrior(head);
         }
-        else if(head==cursor){
-            now =new DListNode(newElement,cursor,cursor.getNext());
-            head.setNext(now);
-            cursor = now;
-        }
-        else {
-            now = new DListNode(newElement, cursor, cursor.getNext());
+        else{
+            if(cursor.getNext()==null) next = head;
+            else next = cursor.getNext();
+            now =new DListNode(newElement,cursor,next);
             cursor.setNext(now);
             cursor = now;
+
         }
+
 
     }
 
@@ -201,9 +202,11 @@ class DList implements List     //Circular, doubly linked list implementation of
             return false;
         }
         else {
-            while(cursor.getNext()!=null){
+            cursor =head;
+            do{
+                if(cursor.getNext()==null) break;
                 cursor = cursor.getNext();
-            }
+            }while(cursor.getNext()!= head);
             return true;
         }
 
@@ -218,8 +221,8 @@ class DList implements List     //Circular, doubly linked list implementation of
             return false;
         }
         else if(cursor.getNext()==null) {
-            System.out.println("Already at end of the list, cannot go to next element!");
-            return false;
+            gotoBeginning();
+            return true;
         }
         else {
             cursor = cursor.getNext();
@@ -236,8 +239,8 @@ class DList implements List     //Circular, doubly linked list implementation of
             return false;
         }
         else if(cursor.getPrior()==null) {
-            System.out.println("Already at beginning of the list, cannot go to prior element!");
-            return false;
+            gotoEnd();
+            return true;
         }
         else {
             cursor = cursor.getPrior();
@@ -263,13 +266,18 @@ class DList implements List     //Circular, doubly linked list implementation of
             System.out.println("Empty list");
         else {
             p = head;
+
             do {
-                if (p == cursor)
-                    System.out.print("[" + p.getElement() + "] ");
-                else
-                    System.out.print(p.getElement() + " ");
+
+                if (p == cursor)   System.out.print("[" + p.getElement() + "] ");
+                else   System.out.print(p.getElement() + " ");
+
+
+                if(p.getNext()==null) break;
+//                else
                 p = p.getNext();
-            } while (p != null);
+
+            } while (p != head);
             System.out.println();
         }
     }
@@ -280,6 +288,82 @@ class DList implements List     //Circular, doubly linked list implementation of
     // Reverses the order of the elements in a list. The cursor does
     // not move. 
     {
+        gotoEnd();
+        showStructure();
+//        cursor.setNext();
+//
+
+        DListNode next =null;
+//                DListNode(cursor.getNext().getElement(), cursor,null);
+
+//        cursor.setNext(next);
+//        head = head.getNext();
+//        head.setPrior(null);
+//        next.setNext(head.getNext());
+//        gotoBeginning();
+//        remove();
+//        gotoEnd();
+//        while(cursor!=head) {
+//            showStructure();
+//            next = new DListNode(cursor.getPrior().getElement(), cursor, next);
+//
+//            cursor.getNext().setPrior(next);
+//            cursor.setPrior(cursor.getPrior().getPrior());
+//            cursor.setNext(next);
+//            head = head.getNext();
+//            head.setPrior(null);
+//        }
+//        head
+        next = new DListNode(head.getElement(),cursor, head.getNext());
+
+
+//        myReverse();
+        System.out.printf("Number of elements: %d\n", counter());
+        myReverse(counter());
+
+
+
+
     }
+
+    DListNode next;
+
+    private void myReverse(int counter){
+        gotoEnd();
+        int i =counter;
+        Object current, prior;
+
+        if(i>1){
+
+            for(int j = 1;j<i; j++) {
+                showStructure();
+                current = cursor.getElement();
+                prior = cursor.getPrior().getElement();
+                cursor.getPrior().setElement(current);
+                cursor.setElement(prior);
+                cursor = cursor.getPrior();
+                showStructure();
+                System.out.printf("I = %d\tj: %d\n", i,j);
+
+            }
+            gotoEnd();
+            i--;
+            myReverse(i);
+        }
+
+
+    }
+
+    public int counter(){
+        int i=1;
+        gotoEnd();
+        while(cursor!=head){
+            i++;
+            cursor = cursor.getPrior();
+        }
+        return i;
+    }
+
+
 
 } // class DList

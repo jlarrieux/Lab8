@@ -125,10 +125,10 @@ class TestDList
                         System.out.println("List is NOT full");
                     break;
 
-//R             case 'R' : case 'r' :                   // In-lab Exercise 1
-//R                 System.out.println("Reverse the list");
-//R                 testList.reverse();
-//R                 break;
+             case 'R' : case 'r' :                   // In-lab Exercise 1
+                 System.out.println("Reverse the list");
+                 testList.reverse();
+                 break;
 //R
 
 //#             case '#' :                              // In-lab Exercise 2
