@@ -197,25 +197,59 @@ class DList implements List     //Circular, doubly linked list implementation of
 
     @Override
     public boolean gotoEnd() {
-        return false;
+        if(isEmpty()){
+            System.out.println("Attempting to go to end of an empty list!");
+            return false;
+        }
+        else {
+            while(cursor.getNext()!=null){
+                cursor = cursor.getNext();
+            }
+            return true;
+        }
+
+
     }
 
 
     @Override
     public boolean gotoNext() {
-        return false;
+        if(isEmpty()){
+            System.out.println("Attempting to go to next element of an empty list!");
+            return false;
+        }
+        else if(cursor.getNext()==null) {
+            System.out.println("Already at end of the list, cannot go to next element!");
+            return false;
+        }
+        else {
+            cursor = cursor.getNext();
+            return true;
+        }
+
     }
 
 
     @Override
     public boolean gotoPrior() {
-        return false;
+        if(isEmpty()){
+            System.out.println("Attempting to go to prior element of an empty list!");
+            return false;
+        }
+        else if(cursor.getPrior()==null) {
+            System.out.println("Already at beginning of the list, cannot go to prior element!");
+            return false;
+        }
+        else {
+            cursor = cursor.getPrior();
+            return true;
+        }
     }
 
 
     @Override
     public Object getCursor() {
-        return null;
+        return cursor.getElement();
     }
 
 
