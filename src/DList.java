@@ -89,11 +89,14 @@ class DList implements List     //Circular, doubly linked list implementation of
     // Constructors & Helper Method
     public DList()             // Default constructor: Creates an empty list
     {
+        setup();
     }
 
 
     public DList(int size)    // Constructor: Creates an empty list, size is ignored
     {
+        System.out.printf("Attempting to create an unbounded DList with a size %d. Size argument will be ignored!\n ", size);
+        setup();
     }
 
 
@@ -101,6 +104,7 @@ class DList implements List     //Circular, doubly linked list implementation of
     private void setup()
     // Called by constructors only: Creates an empty list
     {
+        head = null;
     }
 
     //----- Insert method definitions for the interface List here -----//   
@@ -108,31 +112,67 @@ class DList implements List     //Circular, doubly linked list implementation of
 
     @Override
     public void insert(Object newElement) {
+        DListNode now;
+        if(head==null){
+            head = new DListNode(newElement,null, null);
+            cursor = head;
+        }
+        else if(head==cursor){
+            now =new DListNode(newElement,cursor,cursor.getNext());
+            head.setNext(now);
+            cursor = now;
+        }
+        else {
+            now = new DListNode(newElement, cursor, cursor.getNext());
+            cursor.setNext(now);
+            cursor = now;
+        }
 
     }
 
 
     @Override
     public void remove() {
+//        System.out.printf("Prior: %s\tCurrent: %s\t\n", cursor.getPrior().getElement(), cursor.getElement());
+        if(isEmpty())System.out.println("Attempting to remove an element from an empty list!");
+        if(head==cursor){
+            if(cursor.getNext()!=null){
+                head = cursor.getNext();
+                cursor = head;
+            }
+            else head=null;
+        }
+        else {
+            cursor.getPrior().setNext(cursor.getNext());
+            if(cursor.getNext()==null){
+
+                cursor= head;
+            }
+            else cursor = cursor.getNext();
+
+        }
 
     }
 
 
     @Override
     public void replace(Object newElement) {
+        if(isEmpty())System.out.println("Attempting to replace element from an empty list!");
+        else cursor.setElement(newElement);
 
     }
 
 
     @Override
     public void clear() {
-
+        head = null;
     }
 
 
     @Override
     public boolean isEmpty() {
-        return false;
+        if(head==null)return true;
+        else  return false;
     }
 
 
@@ -144,7 +184,14 @@ class DList implements List     //Circular, doubly linked list implementation of
 
     @Override
     public boolean gotoBeginning() {
-        return false;
+        if(isEmpty()){
+            System.out.println("Attempting to go to beginning of an empty list!");
+            return false;
+        }
+        else {
+            cursor = head;
+            return true;
+        }
     }
 
 
@@ -189,7 +236,7 @@ class DList implements List     //Circular, doubly linked list implementation of
                 else
                     System.out.print(p.getElement() + " ");
                 p = p.getNext();
-            } while (p != head);
+            } while (p != null);
             System.out.println();
         }
     }

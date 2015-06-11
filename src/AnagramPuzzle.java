@@ -34,29 +34,29 @@ class AnagramPuzzle
     // Returns true if a puzzle is solved. Otherwise returns false.
     {
         // Start at the beginning of the lists
-        if (                                                      )
-        {
-            // Cursor characters which must be initialized
-            // Note: since Object is returned by getCursor, it must be
-            //       cast to Character
-            Character solCh = (Character)solution.getCursor( ), 
-                      puzCh = (Character)puzzle.getCursor( );    
-            
-            while (                                                 )
-            {
-            
-            
-            
-            } 
-            
-            // must use Character.equals(Character) to determine 
-            //  if solCh and puzCh contain the same value
-            //  solCh == puzCh only checks if their reference/address
-            //    (not their values/contents) are the same
-            return ( solCh.equals( puzCh ));
-        }
-        else
-            
+//        if (                                                      )
+//        {
+//            // Cursor characters which must be initialized
+//            // Note: since Object is returned by getCursor, it must be
+//            //       cast to Character
+//            Character solCh = (Character)solution.getCursor( ),
+//                      puzCh = (Character)puzzle.getCursor( );
+//
+//            while (                                                 )
+//            {
+//
+//
+//
+//            }
+//
+//            // must use Character.equals(Character) to determine
+//            //  if solCh and puzCh contain the same value
+//            //  solCh == puzCh only checks if their reference/address
+//            //    (not their values/contents) are the same
+//            return ( solCh.equals( puzCh ));
+//        }
+//        else
+            return false;
     }
     
 } // class AnagramPuzzle 
